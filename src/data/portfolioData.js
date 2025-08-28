@@ -16,7 +16,7 @@ export const clusters = {
       category: "AI Assistant",
       description: "AI-powered Q&A system using Retrieval-Augmented Generation (RAG) for Roblox Deepwoken. Features semantic search with Pinecone vector database and advanced token-based document chunking with overlapping context.",
       tech: ["Python", "FastAPI", "Pinecone", "OpenAI", "RAG", "MediaWiki API"],
-      link: "https://github.com/haydencj/deepwokenbot",
+      link: "https://github.com/haydencj/deepwoken-ai",
       logo: "DW",
       color: 0x4a9eff
     },

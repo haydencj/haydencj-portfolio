@@ -72,20 +72,32 @@ export function CustomCursor({ hovered }) {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   
   useEffect(() => {
+    let animationFrame
+    
     const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY })
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+      
+      animationFrame = requestAnimationFrame(() => {
+        setPosition({ x: e.clientX, y: e.clientY })
+      })
     }
     
-    document.addEventListener('mousemove', handleMouseMove)
-    return () => document.removeEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mousemove', handleMouseMove, { passive: true })
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+    }
   }, [])
   
   return (
     <div 
       className={`custom-cursor ${hovered ? 'hover' : ''}`}
       style={{
-        left: position.x,
-        top: position.y
+        transform: `translate(${position.x}px, ${position.y}px)`
       }}
     />
   )

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import * as THREE from 'three'
 
 export default function WireframeSphere() {
-  const { geometry, glowGeometry } = useMemo(() => {
+  const geometry = useMemo(() => {
     const radius = 1.5
     const segments = 16
     const points = []
@@ -52,33 +52,16 @@ export default function WireframeSphere() {
       }
     }
 
-    const geometry = new THREE.BufferGeometry().setFromPoints(points)
-    const glowGeometry = geometry.clone()
-    
-    return { geometry, glowGeometry }
+    return new THREE.BufferGeometry().setFromPoints(points)
   }, [])
 
   return (
-    <group>
-      {/* Glow layer (behind) */}
-      <lineSegments geometry={glowGeometry} scale={1.01}>
-        <lineBasicMaterial 
-          color="#8a7fff" 
-          transparent 
-          opacity={0.3} 
-          linewidth={6}
-        />
-      </lineSegments>
-      
-      {/* Main wireframe */}
-      <lineSegments geometry={geometry}>
-        <lineBasicMaterial 
-          color="#8a7fff" 
-          transparent 
-          opacity={0.8} 
-          linewidth={3}
-        />
-      </lineSegments>
-    </group>
+    <lineSegments geometry={geometry}>
+      <lineBasicMaterial 
+        color="#20C20E" 
+        transparent 
+        opacity={1} 
+      />
+    </lineSegments>
   )
 }
