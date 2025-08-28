@@ -6,7 +6,7 @@ export const clusters = {
       category: "AI Security Platform",
       description: "Serverless AI-powered scam detection system processing 200+ daily requests via AWS Lambda, SES, and SQS. Achieves 95% response delivery within 10 minutes using OpenAI GPT-4 for email classification with detailed explanations.",
       tech: ["AWS Lambda", "Terraform", "GPT-4", "Python", "DynamoDB", "SES", "SQS"],
-      link: "https://github.com/haydencj/scamvanguard",
+      link: "https://www.scamvanguard.com",
       logo: "SV",
       color: 0x4a9eff
     },
@@ -41,7 +41,7 @@ export const clusters = {
       color: 0x4a9eff
     }
   ],
-  internships: [
+  experience: [
     {
       id: 'jpmorgan',
       title: "JPMorgan Chase",
@@ -80,9 +80,8 @@ export const clusters = {
       category: "AWS • GCP • Infrastructure",
       description: "Expert in cloud-native architectures with AWS Lambda, DynamoDB, S3, SES, SQS, EC2, ECR, ECS. Google Cloud Platform experience with Cloud SQL, Compute Engine, Memorystore. Infrastructure as Code with Terraform.",
       tech: ["AWS", "GCP", "Terraform", "Docker", "Kubernetes", "Serverless"],
-      link: "#cloud",
       logo: "☁",
-      color: 0x4aff6b
+      color: 0x9b59b6
     },
     {
       id: 'fullstack',
@@ -90,9 +89,8 @@ export const clusters = {
       category: "Frontend • Backend • APIs",
       description: "Proficient in modern web technologies: React, Next.js, Vue.js, TypeScript, Node.js, Express.js, Flask, Django. Experience with GraphQL, REST APIs, WebSockets, and real-time applications.",
       tech: ["React", "Node.js", "TypeScript", "GraphQL", "WebSockets", "APIs"],
-      link: "#fullstack",
       logo: "⚡",
-      color: 0x4aff6b
+      color: 0x9b59b6
     },
     {
       id: 'systems',
@@ -100,9 +98,8 @@ export const clusters = {
       category: "Go • Python • C++ • Performance",
       description: "Strong systems programming skills in Go, Python, C++, and Java. Experience with concurrent programming, memory management, performance optimization, and low-level system design.",
       tech: ["Go", "Python", "C++", "Java", "Concurrency", "Optimization"],
-      link: "#systems",
       logo: "⚙",
-      color: 0x4aff6b
+      color: 0x9b59b6
     },
     {
       id: 'ai',
@@ -110,32 +107,31 @@ export const clusters = {
       category: "OpenAI • RAG • Vector Databases",
       description: "Experience integrating AI/ML models into production systems. Worked with OpenAI GPT-4, Retrieval-Augmented Generation (RAG), Pinecone vector databases, and semantic search systems.",
       tech: ["OpenAI", "RAG", "Pinecone", "Vector DB", "Semantic Search", "NLP"],
-      link: "#ai",
       logo: "🧠",
-      color: 0x4aff6b
+      color: 0x9b59b6
     }
   ]
 }
 
 export const clusterPositions = {
-  // Projects cluster - top-left region
+  // Face 0: Front - Projects (spread out more)
   projects: [
-    { phiIndex: 3, thetaIndex: 8 },
-    { phiIndex: 3, thetaIndex: 9 },
-    { phiIndex: 4, thetaIndex: 8 },
-    { phiIndex: 4, thetaIndex: 9 }
+    { face: 0, gridX: 0, gridY: 1 },
+    { face: 0, gridX: 4, gridY: 0 },
+    { face: 0, gridX: 6, gridY: 4 },
+    { face: 0, gridX: 1, gridY: 6 }
   ],
-  // Internships cluster - right region  
-  internships: [
-    { phiIndex: 7, thetaIndex: 20 },
-    { phiIndex: 7, thetaIndex: 21 },
-    { phiIndex: 8, thetaIndex: 20 }
+  // Face 1: Right - Experience (spread out more)
+  experience: [
+    { face: 1, gridX: 1, gridY: 0 },
+    { face: 1, gridX: 5, gridY: 3 },
+    { face: 1, gridX: 0, gridY: 5 }
   ],
-  // Skills cluster - bottom region
+  // Face 2: Top - Skills (spread out more)
   skills: [
-    { phiIndex: 11, thetaIndex: 4 },
-    { phiIndex: 11, thetaIndex: 5 },
-    { phiIndex: 12, thetaIndex: 4 },
-    { phiIndex: 12, thetaIndex: 5 }
+    { face: 2, gridX: 0, gridY: 0 },
+    { face: 2, gridX: 5, gridY: 1 },
+    { face: 2, gridX: 2, gridY: 5 },
+    { face: 2, gridX: 6, gridY: 6 }
   ]
 }

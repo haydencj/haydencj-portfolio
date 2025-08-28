@@ -5,7 +5,7 @@ export function HUD() {
     <div className="hud">
       <div className="hud-title">Hayden Johnson</div>
       <div className="hud-line">Software Engineer</div>
-      <div className="hud-line">UT Arlington • JPMorgan Chase</div>
+      <div className="hud-line">UT Arlington</div>
       <div className="hud-line">Neural Matrix v2.5.1</div>
       <div className="hud-line">Status: Online</div>
     </div>
@@ -20,8 +20,8 @@ export function ClusterLegend() {
         <span>PROJECTS</span>
       </div>
       <div className="legend-item">
-        <div className="legend-color internships"></div>
-        <span>INTERNSHIPS</span>
+        <div className="legend-color experience"></div>
+        <span>EXPERIENCE</span>
       </div>
       <div className="legend-item">
         <div className="legend-color skills"></div>
@@ -54,16 +54,6 @@ export function ProjectInfo({ project, isVisible }) {
           <span key={index} className="tech-tag">{tech}</span>
         ))}
       </div>
-      {project.link && (
-        <a 
-          href={project.link} 
-          className="project-link" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          View Details
-        </a>
-      )}
     </div>
   )
 }

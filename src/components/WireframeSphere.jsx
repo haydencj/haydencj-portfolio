@@ -1,54 +1,135 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
 
-export default function WireframeSphere() {
+export default function WireframeCube() {
   const geometry = useMemo(() => {
-    const radius = 1.5
-    const segments = 16
+    const size = 2.5
+    const segments = 8
     const points = []
     
-    // Create horizontal circles (latitude lines)
+    // Calculate step size for grid
+    const step = size / segments
+    const halfSize = size / 2
+    
+    // Create wireframe grid on each face of the cube
+    
+    // Front face (z = halfSize)
     for (let i = 0; i <= segments; i++) {
-      const phi = (i / segments) * Math.PI
-      const y = radius * Math.cos(phi)
-      const ringRadius = radius * Math.sin(phi)
-      
-      // Create circle at this latitude
-      for (let j = 0; j < segments * 2; j++) {
-        const theta = (j / (segments * 2)) * Math.PI * 2
-        const x = ringRadius * Math.cos(theta)
-        const z = ringRadius * Math.sin(theta)
-        
-        points.push(new THREE.Vector3(x, y, z))
-        
-        // Connect to next point in ring
-        const nextTheta = ((j + 1) / (segments * 2)) * Math.PI * 2
-        const nextX = ringRadius * Math.cos(nextTheta)
-        const nextZ = ringRadius * Math.sin(nextTheta)
-        points.push(new THREE.Vector3(nextX, y, nextZ))
+      for (let j = 0; j < segments; j++) {
+        const x1 = -halfSize + j * step
+        const x2 = -halfSize + (j + 1) * step
+        const y = -halfSize + i * step
+        points.push(new THREE.Vector3(x1, y, halfSize))
+        points.push(new THREE.Vector3(x2, y, halfSize))
+      }
+    }
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x = -halfSize + i * step
+        const y1 = -halfSize + j * step
+        const y2 = -halfSize + (j + 1) * step
+        points.push(new THREE.Vector3(x, y1, halfSize))
+        points.push(new THREE.Vector3(x, y2, halfSize))
       }
     }
     
-    // Create vertical lines (longitude lines)
-    for (let j = 0; j < segments * 2; j++) {
-      const theta = (j / (segments * 2)) * Math.PI * 2
-      
-      for (let i = 0; i < segments; i++) {
-        const phi1 = (i / segments) * Math.PI
-        const phi2 = ((i + 1) / segments) * Math.PI
-        
-        const y1 = radius * Math.cos(phi1)
-        const ringRadius1 = radius * Math.sin(phi1)
-        const x1 = ringRadius1 * Math.cos(theta)
-        const z1 = ringRadius1 * Math.sin(theta)
-        
-        const y2 = radius * Math.cos(phi2)
-        const ringRadius2 = radius * Math.sin(phi2)
-        const x2 = ringRadius2 * Math.cos(theta)
-        const z2 = ringRadius2 * Math.sin(theta)
-        
-        points.push(new THREE.Vector3(x1, y1, z1))
-        points.push(new THREE.Vector3(x2, y2, z2))
+    // Back face (z = -halfSize)
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x1 = -halfSize + j * step
+        const x2 = -halfSize + (j + 1) * step
+        const y = -halfSize + i * step
+        points.push(new THREE.Vector3(x1, y, -halfSize))
+        points.push(new THREE.Vector3(x2, y, -halfSize))
+      }
+    }
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x = -halfSize + i * step
+        const y1 = -halfSize + j * step
+        const y2 = -halfSize + (j + 1) * step
+        points.push(new THREE.Vector3(x, y1, -halfSize))
+        points.push(new THREE.Vector3(x, y2, -halfSize))
+      }
+    }
+    
+    // Left face (x = -halfSize)
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const z1 = -halfSize + j * step
+        const z2 = -halfSize + (j + 1) * step
+        const y = -halfSize + i * step
+        points.push(new THREE.Vector3(-halfSize, y, z1))
+        points.push(new THREE.Vector3(-halfSize, y, z2))
+      }
+    }
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const z = -halfSize + i * step
+        const y1 = -halfSize + j * step
+        const y2 = -halfSize + (j + 1) * step
+        points.push(new THREE.Vector3(-halfSize, y1, z))
+        points.push(new THREE.Vector3(-halfSize, y2, z))
+      }
+    }
+    
+    // Right face (x = halfSize)
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const z1 = -halfSize + j * step
+        const z2 = -halfSize + (j + 1) * step
+        const y = -halfSize + i * step
+        points.push(new THREE.Vector3(halfSize, y, z1))
+        points.push(new THREE.Vector3(halfSize, y, z2))
+      }
+    }
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const z = -halfSize + i * step
+        const y1 = -halfSize + j * step
+        const y2 = -halfSize + (j + 1) * step
+        points.push(new THREE.Vector3(halfSize, y1, z))
+        points.push(new THREE.Vector3(halfSize, y2, z))
+      }
+    }
+    
+    // Top face (y = halfSize)
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x1 = -halfSize + j * step
+        const x2 = -halfSize + (j + 1) * step
+        const z = -halfSize + i * step
+        points.push(new THREE.Vector3(x1, halfSize, z))
+        points.push(new THREE.Vector3(x2, halfSize, z))
+      }
+    }
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x = -halfSize + i * step
+        const z1 = -halfSize + j * step
+        const z2 = -halfSize + (j + 1) * step
+        points.push(new THREE.Vector3(x, halfSize, z1))
+        points.push(new THREE.Vector3(x, halfSize, z2))
+      }
+    }
+    
+    // Bottom face (y = -halfSize)
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x1 = -halfSize + j * step
+        const x2 = -halfSize + (j + 1) * step
+        const z = -halfSize + i * step
+        points.push(new THREE.Vector3(x1, -halfSize, z))
+        points.push(new THREE.Vector3(x2, -halfSize, z))
+      }
+    }
+    for (let i = 0; i <= segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const x = -halfSize + i * step
+        const z1 = -halfSize + j * step
+        const z2 = -halfSize + (j + 1) * step
+        points.push(new THREE.Vector3(x, -halfSize, z1))
+        points.push(new THREE.Vector3(x, -halfSize, z2))
       }
     }
 

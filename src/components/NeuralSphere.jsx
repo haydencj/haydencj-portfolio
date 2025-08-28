@@ -4,9 +4,9 @@ import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { clusters, clusterPositions } from '../data/portfolioData'
 import HologramSquare from './HologramSquare'
-import WireframeSphere from './WireframeSphere'
+import WireframeCube from './WireframeSphere'
 
-export default function NeuralSphere({ onHover, onSelect }) {
+export default function NeuralCube({ onHover, onSelect }) {
   const groupRef = useRef()
   const { camera } = useThree()
   
@@ -32,8 +32,8 @@ export default function NeuralSphere({ onHover, onSelect }) {
 
   return (
     <group ref={groupRef}>
-      {/* Wireframe sphere */}
-      <WireframeSphere />
+      {/* Wireframe cube */}
+      <WireframeCube />
       
       {/* Hologram squares */}
       {hologramSquares.map((square, index) => (
