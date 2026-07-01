@@ -227,11 +227,19 @@ a { color: inherit; }
 }
 
 @media (max-width: 560px) {
+  .document {
+    min-height: calc(100svh - 78px);
+    padding: 18px;
+  }
+
   .ansi-hero {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
     gap: 8px;
-    min-height: 220px;
+    min-height: 184px;
+    margin-bottom: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .hero-name {
@@ -247,10 +255,32 @@ a { color: inherit; }
     max-width: 100%;
     font-size: clamp(3.2px, 0.95vw, 4.2px);
   }
+
+  .summary {
+    margin-bottom: 26px;
+  }
+
+  .experience-section h2 {
+    margin-bottom: 10px;
+  }
+
+  .experience-list {
+    gap: 10px;
+  }
+
+  .experience-row {
+    padding: 10px 0;
+  }
+
+  .bottom-nav {
+    gap: 10px 18px;
+    margin-top: 28px;
+    padding-top: 14px;
+  }
 }
 
 @media (min-width: 700px) {
   .desktop { padding: 32px; align-items: center; }
-  .document { min-height: 640px; }
+  .document { min-height: 679px; }
   .experience-row { grid-template-columns: 1.25fr 1fr auto; align-items: baseline; gap: 18px; }
 }
