@@ -76,6 +76,11 @@ a { color: inherit; }
   text-overflow: ellipsis;
 }
 
+.window-title[data-short-title]::before {
+  content: attr(data-short-title);
+  font-size: 12px;
+  display: none;
+}
 
 .document {
   background: #fffef8;
@@ -202,6 +207,24 @@ a { color: inherit; }
   margin: 0;
 }
 
+@media (max-width: 440px) {
+  .desktop {
+    padding: 8px;
+  }
+
+  .titlebar {
+    grid-template-columns: 62px 1fr 62px;
+    padding: 0 10px;
+  }
+
+  .window-title[data-short-title] {
+    font-size: 0;
+  }
+
+  .window-title[data-short-title]::before {
+    display: inline;
+  }
+}
 
 @media (max-width: 560px) {
   .ansi-hero {

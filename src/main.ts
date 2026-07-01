@@ -135,7 +135,7 @@ function textElement<K extends keyof HTMLElementTagNameMap>(
   return element
 }
 
-function createTextEditShell(title: string, content: HTMLElement): HTMLElement {
+function createTextEditShell(title: string, content: HTMLElement, shortTitle?: string): HTMLElement {
   const main = document.createElement('main')
   main.className = 'desktop'
 
@@ -158,6 +158,9 @@ function createTextEditShell(title: string, content: HTMLElement): HTMLElement {
   }
 
   const windowTitle = textElement('p', 'window-title', title)
+  if (shortTitle) {
+    windowTitle.dataset.shortTitle = shortTitle
+  }
   const spacer = document.createElement('span')
   const documentArticle = document.createElement('article')
   documentArticle.className = 'document'
@@ -235,7 +238,7 @@ function createPortfolioPage(): HTMLElement {
 
   content.append(hero, summary, experienceSection, bottomNav)
 
-  return createTextEditShell('portfolio.txt — hayden johnson', content)
+  return createTextEditShell('portfolio.txt — hayden johnson', content, 'portfolio.txt — hayden j')
 }
 
 function createShitListPage(): HTMLElement {
