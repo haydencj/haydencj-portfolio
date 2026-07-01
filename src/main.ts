@@ -1,5 +1,10 @@
 import Anser from 'anser'
+import { inject } from '@vercel/analytics'
 import './styles.css'
+
+inject({
+  mode: import.meta.env.DEV ? 'development' : 'production',
+})
 
 const SHIT_LIST_HASH = '#shit-list'
 const HERO_INTERVAL_MS = 360
