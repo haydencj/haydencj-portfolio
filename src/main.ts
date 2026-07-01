@@ -25,7 +25,7 @@ const EXPERIENCE: readonly ExperienceItem[] = [
   {
     company: 'hennge inc.',
     title: 'software engineer intern',
-    dates: 'january 2024 – february 2024',
+    dates: 'jan 2024 – feb 2024',
   },
 ] as const
 
@@ -243,10 +243,19 @@ function createPortfolioPage(): HTMLElement {
 
 function createShitListPage(): HTMLElement {
   const content = document.createElement('div')
+
+  const pageNav = document.createElement('nav')
+  pageNav.className = 'page-nav'
+  pageNav.setAttribute('aria-label', 'portfolio navigation')
+
+  const backLink = textElement('a', 'back-link', '← portfolio')
+  backLink.href = '#'
+  pageNav.append(backLink)
+
   const heading = textElement('h1', 'page-heading', 'shit list')
   const names = textElement('pre', 'shit-names', 'leo\nvimal')
 
-  content.append(heading, names)
+  content.append(pageNav, heading, names)
 
   return createTextEditShell('shit-list.txt', content)
 }
