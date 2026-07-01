@@ -27,6 +27,26 @@ const EXPERIENCE: readonly ExperienceItem[] = [
   },
 ] as const
 
+type ProfileLink = {
+  label: string
+  href: string
+}
+
+const PROFILE_LINKS: readonly ProfileLink[] = [
+  {
+    label: 'linkedin',
+    href: 'https://www.linkedin.com/in/haydencj',
+  },
+  {
+    label: 'github',
+    href: 'https://github.com/haydencj',
+  },
+  {
+    label: 'email',
+    href: 'mailto:haydenjohns02@gmail.com',
+  },
+] as const
+
 function qs<T extends Element>(selector: string, root: ParentNode = document): T {
   const element = root.querySelector<T>(selector)
 
@@ -99,6 +119,19 @@ function createPortfolioPage(): HTMLElement {
 
   const summary = textElement('p', 'summary', SUMMARY)
 
+  const profileLinks = document.createElement('div')
+  profileLinks.className = 'profile-links'
+  profileLinks.setAttribute('role', 'group')
+  profileLinks.setAttribute('aria-label', 'profile links')
+
+  for (const link of PROFILE_LINKS) {
+    const anchor = textElement('a', 'profile-link', link.label)
+    anchor.href = link.href
+    anchor.target = '_blank'
+    anchor.rel = 'noreferrer'
+    profileLinks.append(anchor)
+  }
+
   const experienceSection = document.createElement('section')
   experienceSection.className = 'experience-section'
   experienceSection.setAttribute('aria-labelledby', 'experience-heading')
@@ -130,7 +163,7 @@ function createPortfolioPage(): HTMLElement {
 
   const shitLink = textElement('a', 'shit-link', 'shit list')
   shitLink.href = SHIT_LIST_HASH
-  bottomNav.append(shitLink)
+  bottomNav.append(shitLink, profileLinks)
 
   content.append(hero, summary, experienceSection, bottomNav)
 

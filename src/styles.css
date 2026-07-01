@@ -116,7 +116,27 @@ a { color: inherit; }
 .company { font-weight: 800; }
 .role, .dates { color: #474747; }
 
+.profile-links {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 0;
+}
+
+.profile-link {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .bottom-nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
   margin-top: 40px;
   padding-top: 18px;
   border-top: 1px solid #dfdccf;
