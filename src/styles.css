@@ -9,10 +9,10 @@
           "Cascadia Code", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
 
   /* modular-ish mono scale */
-  --fs-xs:   12px;
-  --fs-sm:   13px;
-  --fs-base: 14px;
-  --fs-md:   16px;
+  --fs-xs:   11px;
+  --fs-sm:   12px;
+  --fs-base: 13px;
+  --fs-md:   15px;
   --fs-lg:   19px;
   --fs-xl:   26px;
 
@@ -269,7 +269,7 @@ h1, h2, p, ol, li, pre, nav, figure { margin: 0; padding: 0; }
 /* ---- summary ----------------------------------------------------------- */
 .summary {
   max-width: 68ch;
-  font-size: var(--fs-md);
+  font-size: clamp(15px, 4vw, 18px);
   line-height: var(--lh-body);
   color: var(--ink);
   text-wrap: pretty;
@@ -283,9 +283,9 @@ h1, h2, p, ol, li, pre, nav, figure { margin: 0; padding: 0; }
 
 #experience-heading {
   margin-bottom: var(--sp-4);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-base);
   font-weight: 600;
-  letter-spacing: .18em;
+  letter-spacing: .14em;
   color: var(--muted);
 }
 
@@ -306,7 +306,7 @@ h1, h2, p, ol, li, pre, nav, figure { margin: 0; padding: 0; }
 .company { font-weight: 600; color: var(--ink); }
 .role    { color: var(--muted); }
 .dates   {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
@@ -334,16 +334,17 @@ h1, h2, p, ol, li, pre, nav, figure { margin: 0; padding: 0; }
   display: flex;
 }
 .page-heading {
-  font-size: var(--fs-xl);
+  font-size: var(--fs-base);
   line-height: var(--lh-tight);
   font-weight: 700;
-  letter-spacing: -.01em;
+  letter-spacing: .14em;
 }
 .shit-names {
   max-width: 60ch;
   white-space: pre-line;
-  color: var(--muted);
-  line-height: var(--lh-body);
+  font-size: clamp(18px, 6vw, 32px);
+  color: var(--ink);
+  line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -363,7 +364,7 @@ a:hover {
   text-decoration-color: currentColor;
 }
 .back-link {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   color: var(--muted);
 }
 
