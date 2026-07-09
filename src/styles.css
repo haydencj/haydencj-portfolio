@@ -9,10 +9,10 @@
           "Cascadia Code", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
 
   /* modular-ish mono scale */
-  --fs-xs:   11px;
-  --fs-sm:   12px;
-  --fs-base: 13px;
-  --fs-md:   15px;
+  --fs-xs:   12px;
+  --fs-sm:   13px;
+  --fs-base: 14px;
+  --fs-md:   16px;
   --fs-lg:   19px;
   --fs-xl:   26px;
 
@@ -385,6 +385,13 @@ a:focus-visible {
     min-height: min(60svh, 100svh - 64px);
     max-height: calc(100svh - 64px);
   }
+
+  /* let the bottom nav sink toward the paper's lower edge */
+  .document {
+    display: flex;
+    flex-direction: column;
+  }
+  .experience-section { margin-bottom: auto; }
 
   /* 3-col subgrid: company / role / dates (dates right-aligned) */
   .experience-list {
