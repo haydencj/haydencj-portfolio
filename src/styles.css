@@ -1,118 +1,242 @@
+/* =========================================================================
+   textedit portfolio — src/styles.css
+   old-mac textedit doc on a gray desktop. system mono only.
+   ========================================================================= */
+
 :root {
-  color: #111111;
-  background: #d7d7d7;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* type */
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco,
+          "Cascadia Code", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
+
+  /* modular-ish mono scale */
+  --fs-xs:   11px;
+  --fs-sm:   12px;
+  --fs-base: 13px;
+  --fs-md:   15px;
+  --fs-lg:   19px;
+  --fs-xl:   26px;
+
+  --lh-tight: 1.25;
+  --lh-body:  1.65;
+
+  /* spacing system (4px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  /* palette */
+  --desktop-1: #eeeeee;
+  --desktop-2: #c7c7c7;
+  --paper:     #fffef8;
+  --ink:       #111111;
+  --muted:     #474747;
+  --hairline:  #dfdccf;
+  --hairline-strong: #cfccbe;
+
+  /* titlebar */
+  --bar-top:  #f8f7f0;
+  --bar-bot:  #e8e6da;
+
+  /* terminal */
+  --term-bg:     #071009;
+  --term-border: #1f3d24;
+  --term-text:   #d7ffd7;
+  --term-glow:   rgba(76, 255, 115, .12);
+
+  /* interaction */
+  --focus: oklch(0.62 0.13 245);
+  --link-hover: var(--muted);
+
+  /* radii */
+  --radius-win: 8px;
+  --radius-sm:  5px;
 }
 
-* { box-sizing: border-box; }
-html, body, #app { min-height: 100%; margin: 0; }
-body { min-width: 320px; overflow-x: hidden; }
-a { color: inherit; }
+/* ---- reset ------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-.desktop {
-  --window-height: calc(100svh - 24px);
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-width: 320px;
   min-height: 100svh;
-  padding: 12px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  background: radial-gradient(circle at top, #eeeeee 0, #d7d7d7 48%, #c7c7c7 100%);
+  overflow-x: hidden;
+  font-family: var(--mono);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+h1, h2, p, ol, li, pre, nav, figure { margin: 0; padding: 0; }
+
+/* ::selection — warm paper highlight, green inside the terminal */
+::selection            { background: #e4e0cd; color: var(--ink); }
+.ansi-hero ::selection { background: rgba(76, 255, 115, .26); color: #eaffea; }
+
+/* ---- desktop ----------------------------------------------------------- */
+.desktop {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-3); /* 12px < 700px */
+  background:
+    radial-gradient(120% 120% at 50% 22%, var(--desktop-1) 0%, var(--desktop-2) 100%);
+}
+
+/* ---- window ------------------------------------------------------------ */
 .textedit-window {
-  width: min(100%, 920px);
-  height: var(--window-height);
+  width: 100%;
+  max-height: calc(100svh - 24px);
   display: flex;
   flex-direction: column;
-  border: 1px solid #a8a8a8;
-  border-radius: 12px;
-  background: #f4f4f4;
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
   overflow: hidden;
+  background: var(--paper);
+  border: 1px solid rgba(0, 0, 0, .18);
+  border-radius: var(--radius-win);
+  box-shadow:
+    0 22px 60px -22px rgba(0, 0, 0, .5),
+    0 3px 10px rgba(0, 0, 0, .14),
+    0 0 0 0.5px rgba(0, 0, 0, .04);
 }
 
+/* ---- titlebar ---------------------------------------------------------- */
 .titlebar {
-  height: 38px;
-  flex: 0 0 38px;
+  position: relative;
+  flex: 0 0 auto;
   display: grid;
-  grid-template-columns: 72px 1fr 72px;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 0 12px;
-  border-bottom: 1px solid #bdbdbd;
-  background: linear-gradient(#eeeeee, #d3d3d3);
+  gap: var(--sp-3);
+  padding: 7px var(--sp-3);
+  background: linear-gradient(180deg, var(--bar-top), var(--bar-bot));
+  border-bottom: 1px solid var(--hairline-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .85),
+    inset 0 -1px 0 rgba(255, 255, 255, .35);
+  user-select: none;
 }
 
 .traffic-lights {
+  grid-column: 1;
+  justify-self: start;
   display: flex;
   align-items: center;
+  gap: var(--sp-2);
 }
 
 .dot {
-  display: inline-block;
   width: 12px;
   height: 12px;
-  border-radius: 999px;
-  margin-right: 7px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(0, 0, 0, .28);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, .55),
+    inset 0 -1px 1.5px rgba(0, 0, 0, .18);
 }
-
-.close {
-  background: #ff5f57;
+.dot.close {
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255,255,255,.75) 0%, rgba(255,255,255,0) 42%),
+    #ff5f57;
+  border-color: #d8433c;
 }
-
-.minimize {
-  background: #ffbd2e;
+.dot.minimize {
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 42%),
+    #febc2e;
+  border-color: #d79f22;
 }
-
-.zoom {
-  background: #28c840;
+.dot.zoom {
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 42%),
+    #28c840;
+  border-color: #1ba732;
 }
 
 .window-title {
-  margin: 0;
-  text-align: center;
-  font-size: 12px;
-  color: #4b4b4b;
-  white-space: nowrap;
+  grid-column: 2;
+  justify-self: center;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: #33322c;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .7);
 }
 
-.window-title[data-short-title]::before {
-  content: attr(data-short-title);
-  font-size: 12px;
-  display: none;
+/* trailing balance span (mirrors the traffic lights width) */
+.titlebar > span:last-child {
+  grid-column: 3;
 }
 
+/* ---- document (the scrolling paper) ------------------------------------ */
 .document {
-  background: #fffef8;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
-  padding: clamp(18px, 5vw, 56px);
+  padding: var(--sp-6) clamp(var(--sp-4), 5vw, var(--sp-8)) var(--sp-7);
+  color: var(--ink);
+  /* whisper of edge warmth, no gradient wash */
+  box-shadow: inset 0 0 90px rgba(120, 108, 66, .035);
+  scrollbar-width: thin;
+  scrollbar-color: #d3cfbc transparent;
+}
+.document::-webkit-scrollbar {
+  width: 11px;
+}
+.document::-webkit-scrollbar-track {
+  background: transparent;
+}
+.document::-webkit-scrollbar-thumb {
+  background: #d3cfbc;
+  border: 3px solid var(--paper);
+  border-radius: 999px;
+}
+.document::-webkit-scrollbar-thumb:hover {
+  background: #c4bfa8;
 }
 
+/* consistent vertical rhythm between top-level document blocks */
+.document > * + * { margin-top: var(--sp-6); }
+
+/* ==========================================================================
+   PORTFOLIO PAGE
+   ========================================================================== */
+
+/* ---- ansi hero / terminal panel ----------------------------------------
+   composition is identity: big lowercase name left, ansi frog right. */
 .ansi-hero {
   min-height: clamp(150px, 24vw, 220px);
-  margin: 0 0 18px;
   overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(10px, 3vw, 26px);
   padding: 14px 16px 14px clamp(16px, 3vw, 28px);
-  border: 1px solid #1f3d24;
-  border-radius: 8px;
-  background: #071009;
-  color: #d7ffd7;
-  box-shadow: inset 0 0 24px rgba(76, 255, 115, 0.12);
+  border: 1px solid var(--term-border);
+  border-radius: var(--radius-win);
+  background: var(--term-bg);
+  color: var(--term-text);
+  box-shadow:
+    inset 0 0 24px var(--term-glow),
+    inset 0 1px 0 rgba(215, 255, 215, .06),
+    0 1px 2px rgba(0, 0, 0, .35);
 }
 
 .hero-name {
-  margin: 0;
   min-width: 0;
   color: #ffffff;
   font-size: clamp(30px, 8vw, 48px);
@@ -120,6 +244,7 @@ a { color: inherit; }
   font-weight: 800;
   letter-spacing: -0.06em;
   white-space: normal;
+  text-shadow: 0 0 14px rgba(76, 255, 115, .18);
 }
 
 .hero-frog {
@@ -127,132 +252,160 @@ a { color: inherit; }
   min-width: 0;
   width: max-content;
   max-width: 100%;
-  margin: 0;
   white-space: pre;
   overflow: visible;
   font-size: clamp(3.2px, 0.78vw, 6.2px);
   line-height: 0.92;
   letter-spacing: 0;
   text-align: left;
+  /* restrained phosphor bloom — span colors come from the ansi source */
+  text-shadow: 0 0 4px var(--term-glow);
 }
 
 .hero-frog span {
   font-family: inherit;
 }
 
+/* ---- summary ----------------------------------------------------------- */
 .summary {
-  max-width: 62ch;
-  font-size: clamp(15px, 4vw, 18px);
-  line-height: 1.55;
-  margin: 0 0 34px;
+  max-width: 68ch;
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  text-wrap: pretty;
 }
 
-.profile-links {
-  min-width: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 12px;
-  margin: 0;
+/* ---- experience -------------------------------------------------------- */
+.experience-section {
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--sp-5);
 }
 
-.profile-link {
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.experience-section h2, .page-heading {
-  font-size: 13px;
-  letter-spacing: 0.14em;
-  margin: 0 0 14px;
+#experience-heading {
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: .18em;
+  color: var(--muted);
 }
 
 .experience-list {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 14px;
 }
 
+/* stacked < 700px */
 .experience-row {
-  display: grid;
-  gap: 4px;
-  padding: 12px 0;
-  border-top: 1px solid #dfdccf;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.experience-row:first-child { border-top: 1px solid var(--hairline); }
+
+.company { font-weight: 600; color: var(--ink); }
+.role    { color: var(--muted); }
+.dates   {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.company {
-  font-weight: 800;
-}
-
-.role, .dates {
-  color: #474747;
-}
-
+/* ---- bottom nav -------------------------------------------------------- */
 .bottom-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
+  gap: var(--sp-4);
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--sp-5);
+}
+.profile-links {
+  display: flex;
   flex-wrap: wrap;
-  gap: 12px 24px;
-  margin-top: 40px;
-  padding-top: 18px;
-  border-top: 1px solid #dfdccf;
+  gap: var(--sp-4);
 }
 
-.shit-link,
-.back-link {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
+/* ==========================================================================
+   SHIT LIST PAGE
+   ========================================================================== */
 .page-nav {
-  margin: 0 0 28px;
+  display: flex;
 }
-
-.back-link {
+.page-heading {
+  font-size: var(--fs-xl);
+  line-height: var(--lh-tight);
   font-weight: 700;
+  letter-spacing: -.01em;
 }
-
 .shit-names {
+  max-width: 60ch;
   white-space: pre-line;
-  font-size: clamp(18px, 6vw, 32px);
-  line-height: 1.6;
-  margin: 0;
+  color: var(--muted);
+  line-height: var(--lh-body);
 }
 
-@media (max-width: 440px) {
-  .desktop {
-    --window-height: calc(100svh - 16px);
-    padding: 8px;
-  }
-  .titlebar {
-    grid-template-columns: 62px 1fr 62px;
-    padding: 0 10px;
-  }
-
-  .window-title[data-short-title] {
-    font-size: 0;
-  }
-
-  .window-title[data-short-title]::before {
-    display: inline;
-  }
+/* ==========================================================================
+   LINKS — classy mono affordances
+   ========================================================================== */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: #b9b49c;
+  transition: color .12s ease, text-decoration-color .12s ease;
+  border-radius: 2px;
+}
+a:hover {
+  color: var(--link-hover);
+  text-decoration-color: currentColor;
+}
+.back-link {
+  font-size: var(--fs-sm);
+  color: var(--muted);
 }
 
+a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* ---- >= 700px: window sizing + document grows + subgrid rows ----------- */
+@media (min-width: 700px) {
+  .desktop { padding: var(--sp-6); }
+
+  .textedit-window {
+    width: min(78vw, 1440px);
+    min-height: min(60svh, 100svh - 64px);
+    max-height: calc(100svh - 64px);
+  }
+
+  /* 3-col subgrid: company / role / dates (dates right-aligned) */
+  .experience-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) max-content;
+  }
+  .experience-row {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+    align-items: baseline;
+    gap: 0 var(--sp-5);
+  }
+  .dates { text-align: right; }
+}
+
+/* ---- <= 560px: hero rebalance ------------------------------------------ */
 @media (max-width: 560px) {
-  .document {
-    padding: 18px;
-  }
+  .document > * + * { margin-top: var(--sp-5); }
 
   .ansi-hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: 8px;
-    min-height: 184px;
-    margin-bottom: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
   }
@@ -266,37 +419,33 @@ a { color: inherit; }
 
   .hero-frog {
     justify-self: end;
-    width: max-content;
-    max-width: 100%;
     font-size: clamp(3.2px, 0.95vw, 4.2px);
-  }
-
-  .summary {
-    margin-bottom: 26px;
-  }
-
-  .experience-section h2 {
-    margin-bottom: 10px;
-  }
-
-  .experience-list {
-    gap: 10px;
-  }
-
-  .experience-row {
-    padding: 10px 0;
-  }
-
-  .bottom-nav {
-    gap: 10px 18px;
-    margin-top: 28px;
-    padding-top: 14px;
   }
 }
 
-@media (min-width: 700px) {
-  .desktop { --window-height: calc(100svh - 64px); padding: 32px; align-items: center; }
-  .experience-list { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) max-content; gap: 14px 18px; }
-  .experience-row { grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; gap: 0; }
-  .dates { text-align: right; }
+/* ---- <= 440px: tighter desktop + short titlebar title ------------------ */
+@media (max-width: 440px) {
+  .desktop { padding: var(--sp-2); }
+
+  .textedit-window { max-height: calc(100svh - 16px); }
+
+  .window-title[data-short-title] {
+    font-size: 0;
+  }
+  .window-title[data-short-title]::before {
+    content: attr(data-short-title);
+    font-size: var(--fs-sm);
+    letter-spacing: .01em;
+  }
+}
+
+/* ==========================================================================
+   MOTION — the only motion is the JS frog-blink; CSS adds none
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
 }
