@@ -26,6 +26,7 @@ a { color: inherit; }
 .textedit-window {
   width: 100%;
   max-height: var(--window-height);
+  min-height: min(var(--window-height), 48.25rem);
   display: flex;
   flex-direction: column;
   border: 1px solid #a8a8a8;
@@ -246,6 +247,9 @@ a { color: inherit; }
   .document {
     padding: 18px;
   }
+  .textedit-window {
+    min-height: min(var(--window-height), 45rem);
+  }
 
   .ansi-hero {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -296,7 +300,7 @@ a { color: inherit; }
 
 @media (min-width: 700px) {
   .desktop { --window-height: calc(100svh - 64px); padding: 32px; align-items: center; }
-  .textedit-window { width: min(78vw, 1440px); min-height: min(60svh, var(--window-height)); }
+  .textedit-window { width: min(78vw, 1440px); min-height: min(var(--window-height), max(60svh, 45rem)); }
   .experience-list { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) max-content; gap: 14px 18px; }
   .experience-row { grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; gap: 0; }
   .dates { text-align: right; }
